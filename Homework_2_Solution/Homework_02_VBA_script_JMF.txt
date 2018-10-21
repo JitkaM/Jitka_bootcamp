@@ -1,0 +1,269 @@
+Sub wall_street()
+
+    
+
+    'Declare variables for Worksheet and row count
+
+    Dim ws As Worksheet
+
+    Dim row_cnt As Double
+
+
+
+    'Loop one worksheet at a time and generate results
+
+    For Each ws In Worksheets
+
+        ws.Activate
+
+        
+
+        'Get row count on the worksheet
+
+        row_cnt = Application.CountA(Range("A:A"))
+
+
+
+        'Declare variables to capture aggregate results for Worksheet
+
+        Dim ticker_name As String
+
+        Dim ticker_total As Double
+
+        ticker_total = 0
+
+        
+
+        Dim result_row_number As Double
+
+        result_row_number_counter = 2
+
+
+
+        'Assign values to cells to show headers for aggregate results
+
+        Cells(1, 9).Value = "Ticker"
+
+        Cells(1, 10).Value = "Yearly Change"
+
+        Cells(1, 11).Value = "Percentage Change"
+
+        Cells(1, 12).Value = "Total Stock Volume"
+
+        Cells(1, 16).Value = "Ticker"
+
+        Cells(1, 17).Value = "Value"
+
+        Cells(2, 15).Value = "Greatest % Increase"
+
+        Cells(3, 15).Value = "Greatest % Decrease"
+
+        Cells(4, 15).Value = "Greatest Total Volume"
+
+
+
+        'Declare variables to capture yearly and % change
+
+        Dim initial_val As Double
+
+        Dim final_val As Double
+
+        Dim yearly_change_val As Double
+
+        Dim percent_change_val As Double
+
+        Dim stock_tracker As Double
+
+        stock_tracker = 2
+
+        
+
+        'Pick each row starting second row (leave header) and generate aggregate results
+
+        For i = 2 To row_cnt
+
+            
+
+            'Capture open Value of new stock from the worksheet
+
+            initial_val = Cells(stock_tracker, 3)
+
+            
+
+            'Condition to check if the next cell in column is a new stock
+
+            If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+
+
+
+                'Assign final aggregate values to cells with ticker name and ticker total
+
+                ticker_name = Cells(i, 1).Value
+
+                ticker_total = ticker_total + Cells(i, 7).Value
+
+                
+
+                'Capture final close value of a stock from the worksheet
+
+                final_val = Cells(i, 6)
+
+
+
+                'Find yearly change result of a stock
+
+                yearly_change_val = final_val - initial_val
+
+                
+
+                'Color the cells depending on whether the yearly change value is positive or negative
+
+                If (yearly_change_val <= 0) Then
+
+                    Cells(result_row_number_counter, 10).Interior.ColorIndex = 3
+
+                
+
+                Else
+
+                    Cells(result_row_number_counter, 10).Interior.ColorIndex = 4
+
+                
+
+                End If
+
+                
+
+                'Calculate % change depending on whether open value is zero or not
+
+                If initial_val = 0 Then
+
+                    percent_change_val = 0
+
+                    
+
+                Else
+
+                    percent_change_val = (final_val - initial_val) / initial_val
+
+
+
+                End If
+
+
+
+                'Format cell to reflect % value
+
+                Cells(result_row_number_counter, 11).Style = "Percent"
+
+                Cells(result_row_number_counter, 11).NumberFormat = "0.00%"
+
+
+
+                'Assign aggregate result values to cells
+
+                Range("I" & result_row_number_counter).Value = ticker_name
+
+                Range("J" & result_row_number_counter).Value = yearly_change_val
+
+                Range("K" & result_row_number_counter).Value = percent_change_val
+
+                Range("L" & result_row_number_counter).Value = ticker_total
+
+                result_row_number_counter = result_row_number_counter + 1
+
+                
+
+                'Re-assign ticker value to zero for new stock. Increment stock tracker counter to new stock
+
+                ticker_total = 0
+
+                stock_tracker = i + 1
+
+            
+
+            'Execute else for the same stock in worksheet and increment ticker total
+
+            Else
+
+                ticker_total = ticker_total + Cells(i, 7).Value
+
+
+
+
+
+            End If
+
+        
+
+        Next i
+
+
+
+        'Declare and find the greatest percent increase of a stock in the worksheet
+
+        Dim greatest_pct_inc As Double
+
+        Dim greatest_pct_inc_rownum As Double
+
+        greatest_pct_inc = Application.WorksheetFunction.Max(Range("K:K"))
+
+        greatest_pct_inc_rownum = (Application.WorksheetFunction.Match(greatest_pct_inc, Range("K:K"), 0))
+
+        
+
+        Cells(2, 16).Value = Cells(greatest_pct_inc_rownum, "I")
+
+        Cells(2, 17).Style = "Percent"
+
+        Cells(2, 17).NumberFormat = "0.00%"
+
+        Cells(2, 17).Value = greatest_pct_inc
+
+
+
+        'Declare and find the greatest percent decrease of a stock in the worksheet
+
+        Dim greatest_pct_dec As Double
+
+        Dim greatest_pct_dec_rownum As Double
+
+        greatest_pct_dec = Application.WorksheetFunction.Min(Range("K:K"))
+
+        greatest_pct_dec_rownum = (Application.WorksheetFunction.Match(greatest_pct_dec, Range("K:K"), 0))
+
+        
+
+        Cells(3, 16).Value = Cells(greatest_pct_dec_rownum, "I")
+
+        Cells(3, 17).Style = "Percent"
+
+        Cells(3, 17).NumberFormat = "0.00%"
+
+        Cells(3, 17).Value = greatest_pct_dec
+
+
+
+        'Declare and find the greatest total volume of a stock in the worksheet
+
+        Dim greatest_total As Double
+
+        Dim greatest_total_rownum As Double
+
+        greatest_total = Application.WorksheetFunction.Max(Range("L:L"))
+
+        greatest_total_rownum = (Application.WorksheetFunction.Match(greatest_total, Range("L:L"), 0))
+
+
+
+        Cells(4, 16).Value = Cells(greatest_total_rownum, "I")
+
+        Cells(4, 17).Value = greatest_total
+
+        
+
+    Next ws
+
+    
+
+End Sub
