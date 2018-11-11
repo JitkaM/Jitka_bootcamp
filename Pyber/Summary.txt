@@ -1,0 +1,8 @@
+In the Pyber homework, we have confirmed that Urban areas have much larger representation, than both rural and suburban areas combined in all measured aspects:
+ 
+1) Urban Cities have larger market share than rural and suburban areas combined.
+
+2) Urban Cities have larger number of rides.
+
+3) Urban Cities have over 80% of drivers.
+
