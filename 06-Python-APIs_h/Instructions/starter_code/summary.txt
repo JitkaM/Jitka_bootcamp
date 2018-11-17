@@ -1,0 +1,5 @@
+The temperature increases as we approach the equator
+There isn't any detectable coorilation between Latitude and Humidity, Cloudiness or Wind speed that can be detected from the plots created in this exercise.
+I've run the dataset multiple times to see if better sample would come up, but all sets show up similar patterns.
+
+ 
