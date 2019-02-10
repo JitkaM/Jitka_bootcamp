@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>UFO Sightings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>UFO Sightings</h1>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="date" placeholder="Date (m/d/yyyy)">
+                        <input type="text" class="form-control" id="city" placeholder="City (i.e. Seattle)">
+                        <input type="text" class="form-control" id="state" placeholder="State (i.e. WA)">
+                        <input type="text" class="form-control" id="country" placeholder="Country (i.e. US)">
+                        <input type="text" class="form-control" id="shape" placeholder="Shape (i.e. Circle)">
+                        <span class="form-group-btn">
+                            <button class="btn btn-default" id="search" type="button">Search</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Table-->
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                   <thead>
+                       <tr>
+                           <th class="col-md-1">Date</th>
+                           <th class="col-md-2">City</th>
+                           <th class="col-md-1">State</th>
+                           <th class="col-md-1">Country</th>
+                           <th class="col-md-1">Shape</th>
+                           <th class="col-md-2">Duration</th>
+                           <th class="col-md-4">Comment</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                   </tbody> 
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js" type="text/javascript"></script>
+    <script src="index.js" type="text/javascript"></script>
+</body>
+</html>
